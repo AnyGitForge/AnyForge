@@ -1,0 +1,26 @@
+set shell := ["sh", "-eu", "-c"]
+set positional-arguments
+
+default:
+    @just --list
+
+build:
+    go build -o bin/anyforge .
+
+test:
+    go test -race ./...
+
+# Test the compiled binary. Port 8080 must be free.
+e2e:
+    go test -race -tags=e2e -run '^TestE2E$' -count=1 -timeout=60s ./...
+
+lint:
+    go vet ./...
+    @unformatted=$(gofmt -l .); if [ -n "$unformatted" ]; then printf '%s\n' "$unformatted"; exit 1; fi
+
+fmt:
+    gofmt -w .
+
+# Run the CLI with arguments, such as: just run serve --path owner/repo.git --upstream git@github.com:owner/repo.git
+run *args:
+    go run . "$@"

@@ -1,3 +1,4 @@
 [tools]
 go = "1.27.1"
+"go:golang.org/x/tools/gopls" = "latest"
 just = "1.58.0"

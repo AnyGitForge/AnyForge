@@ -2,9 +2,9 @@
 
 These decisions describe the intended architecture, not implemented behavior.
 
-## 1. Go, one binary with independent roles
+## 1. One binary with independent roles
 
-AnyForge uses Go for Git serving, storage, maintenance, and distribution. Git objects and protocols use `go-git`, subject to compatibility validation.
+The CLI HTTP skeleton uses Go and its standard library. The monorepo structure is language-agnostic. `go-git` remains a candidate for Git serving, storage, maintenance, and distribution.
 
 The same binary supports serving, maintenance, and distribution roles. Roles can run together for a small installation or in separate processes.
 
@@ -118,4 +118,4 @@ Stalled destinations require an explicit retention, archive, or resynchronizatio
 - Consumer ownership and checkpoint coordination.
 - Retention limits and stalled-destination policy.
 - Safe coalescing rules for pending ref updates.
-- `go-git` compatibility and maintenance requirements.
+- Git library compatibility and maintenance requirements.
